@@ -29,6 +29,16 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        stage('Automation'){
+            steps {
+               echo 'Running Selenium Automation Scripts'
+            }
+        }
+        stage('Integration Test'){
+            steps {
+                echo 'Run integration tests'
+            }
+        }
         
         stage('Communicate'){
             steps {
