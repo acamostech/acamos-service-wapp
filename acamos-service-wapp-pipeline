@@ -40,6 +40,12 @@ pipeline {
             }
         }
         
+        stage('Deploy to Artifaactory'){
+            steps {
+                echo 'Deploy to Jfrog Artifaactory '
+            }
+        }
+        
         stage('Communicate'){
             steps {
                 echo 'Send message to your slack or teams channel'
