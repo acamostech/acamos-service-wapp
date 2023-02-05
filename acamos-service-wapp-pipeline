@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    tools {
+        maven "maven_3.8.7"
+    }
+    options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
+    
+    stages {
+        stage('Intialize') {
+            steps{
+                echo "PATH = ${M2_HOME}/bin:${PATH}"
+                echo "M2_HOME = /opt/maven"
+            }
+        }
+        
+        stage('Check Out'){
+            steps {
+                git branch: 'main',
+                    credentialsId: 'jenkins-github-integration',
+                    url: 'https://github.com/acamostech/acamos-service-wapp.git'
+            }
+        } 
+        stage('Build'){
+            steps {
+                sh "ls -lat"
+                sh 'mvn clean install'
+            }
+        }
+        
+        stage('Communicate'){
+            steps {
+                echo 'Send message to your slack or teams channel'
+            }
+        }
+        
+        
+    }
+    
+    
+}
